@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import pickle
 import re
 import pandas as pd
@@ -89,6 +89,10 @@ elif page == "Project":
         if user_text.strip() == "":
             st.warning("Please enter some text first.")
         else:
+            word_count = len(user_text.split())
+            if word_count < 60:
+                st.info("Note: Short inputs (under 60 words) are harder for this model to classify reliably. For best results, paste a fuller article or paragraph.")
+
             cleaned = clean_text(user_text)
             vec = vectorizer.transform([cleaned])
             model = models[model_choice]
@@ -108,4 +112,3 @@ elif page == "Contact":
     st.write("Feel free to reach out with any questions, feedback, or collaboration ideas.")
     st.write("")
     st.markdown("**Email:** diptashreedan4@gmail.com")
-
